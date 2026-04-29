@@ -559,10 +559,29 @@
       color: white;
     }
 
-    .product-visual svg {
-      width: 92px;
-      height: 92px;
-      filter: drop-shadow(0 16px 24px rgba(15, 23, 42, 0.18));
+    .product-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transform: scale(1.01);
+      transition: transform 0.55s ease, filter 0.55s ease;
+      filter: saturate(1.08) contrast(1.03);
+    }
+
+    .product-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(15, 23, 42, 0.04), rgba(15, 23, 42, 0.28)),
+        radial-gradient(circle at 18% 12%, rgba(255,255,255,0.52), transparent 34%);
+      pointer-events: none;
+    }
+
+    .product-card:hover .product-visual img {
+      transform: scale(1.09);
+      filter: saturate(1.16) contrast(1.06);
     }
 
     .badge {
@@ -576,6 +595,8 @@
       font-size: 12px;
       font-weight: 900;
       backdrop-filter: blur(12px);
+      z-index: 2;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
     }
 
     .product-body {
@@ -1165,10 +1186,7 @@
 
         <div class="products-grid" id="productsGrid">
           <article class="product-card reveal" data-category="products popular" data-name="smart watch pro умные часы">
-            <div class="product-visual">
-              <span class="badge">Хит продаж</span>
-              <svg viewBox="0 0 120 120" fill="none" aria-hidden="true"><rect x="38" y="22" width="44" height="76" rx="16" fill="white" opacity=".92"/><rect x="45" y="32" width="30" height="54" rx="10" fill="#4f46e5"/><path d="M52 50h16M52 62h11" stroke="white" stroke-width="5" stroke-linecap="round"/></svg>
-            </div>
+            <div class="product-visual"><span class="badge">Хит продаж</span><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=85" alt="Умные часы" loading="lazy"></div>
             <div class="product-body">
               <div class="product-meta"><span>Товар · Гаджеты</span><span class="rating">★★★★★</span></div>
               <h3>Smart Watch Pro</h3>
@@ -1178,10 +1196,7 @@
           </article>
 
           <article class="product-card reveal" data-category="products" data-name="office comfort kit набор офис">
-            <div class="product-visual">
-              <span class="badge">Новинка</span>
-              <svg viewBox="0 0 120 120" fill="none" aria-hidden="true"><rect x="26" y="35" width="68" height="48" rx="14" fill="white" opacity=".92"/><path d="M42 35v-7h36v7" stroke="white" stroke-width="8" stroke-linecap="round"/><path d="M38 54h44M38 67h28" stroke="#06b6d4" stroke-width="6" stroke-linecap="round"/></svg>
-            </div>
+            <div class="product-visual"><span class="badge">Новинка</span><img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=85" alt="Офисный набор" loading="lazy"></div>
             <div class="product-body">
               <div class="product-meta"><span>Товар · Офис</span><span class="rating">★★★★☆</span></div>
               <h3>Office Comfort Kit</h3>
@@ -1191,10 +1206,7 @@
           </article>
 
           <article class="product-card reveal" data-category="services popular" data-name="premium delivery доставка установка сервис">
-            <div class="product-visual">
-              <span class="badge">Быстро</span>
-              <svg viewBox="0 0 120 120" fill="none" aria-hidden="true"><path d="M22 51h48v31H22z" fill="white" opacity=".92"/><path d="M70 60h17l12 12v10H70z" fill="white" opacity=".76"/><circle cx="39" cy="84" r="8" fill="#312e81"/><circle cx="84" cy="84" r="8" fill="#312e81"/><path d="M30 42h28" stroke="white" stroke-width="7" stroke-linecap="round"/></svg>
-            </div>
+            <div class="product-visual"><span class="badge">Быстро</span><img src="https://images.unsplash.com/photo-1605902711622-cfb43c4437d1?auto=format&fit=crop&w=900&q=85" alt="Доставка товара" loading="lazy"></div>
             <div class="product-body">
               <div class="product-meta"><span>Услуга · Доставка</span><span class="rating">★★★★★</span></div>
               <h3>Premium Delivery</h3>
@@ -1204,10 +1216,7 @@
           </article>
 
           <article class="product-card reveal" data-category="services" data-name="brand design дизайн упаковка айдентика">
-            <div class="product-visual">
-              <span class="badge">Design</span>
-              <svg viewBox="0 0 120 120" fill="none" aria-hidden="true"><rect x="30" y="28" width="60" height="64" rx="18" fill="white" opacity=".92"/><path d="M44 48h32M44 62h22M44 76h28" stroke="#7c3aed" stroke-width="6" stroke-linecap="round"/></svg>
-            </div>
+            <div class="product-visual"><span class="badge">Design</span><img src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=900&q=85" alt="Дизайн бренда" loading="lazy"></div>
             <div class="product-body">
               <div class="product-meta"><span>Услуга · Дизайн</span><span class="rating">★★★★★</span></div>
               <h3>Brand Design</h3>
@@ -1217,10 +1226,7 @@
           </article>
 
           <article class="product-card reveal" data-category="products popular" data-name="home tech set техника дом набор">
-            <div class="product-visual">
-              <span class="badge">Top</span>
-              <svg viewBox="0 0 120 120" fill="none" aria-hidden="true"><path d="M24 58 60 30l36 28v36H24V58Z" fill="white" opacity=".92"/><rect x="49" y="66" width="22" height="28" rx="6" fill="#4f46e5"/><path d="M39 58h10M71 58h10" stroke="#06b6d4" stroke-width="6" stroke-linecap="round"/></svg>
-            </div>
+            <div class="product-visual"><span class="badge">Top</span><img src="https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=900&q=85" alt="Техника для дома" loading="lazy"></div>
             <div class="product-body">
               <div class="product-meta"><span>Товар · Дом</span><span class="rating">★★★★★</span></div>
               <h3>Home Tech Set</h3>
@@ -1230,10 +1236,7 @@
           </article>
 
           <article class="product-card reveal" data-category="services" data-name="support plus поддержка консультация обслуживание">
-            <div class="product-visual">
-              <span class="badge">24/7</span>
-              <svg viewBox="0 0 120 120" fill="none" aria-hidden="true"><circle cx="60" cy="58" r="34" fill="white" opacity=".92"/><path d="M45 60c0-10 6-17 15-17s15 7 15 17" stroke="#4f46e5" stroke-width="7" stroke-linecap="round"/><path d="M45 65v9h9M75 65v9h-9" stroke="#06b6d4" stroke-width="7" stroke-linecap="round"/></svg>
-            </div>
+            <div class="product-visual"><span class="badge">24/7</span><img src="https://images.unsplash.com/photo-1556745757-8d76bdb6984b?auto=format&fit=crop&w=900&q=85" alt="Служба поддержки" loading="lazy"></div>
             <div class="product-body">
               <div class="product-meta"><span>Услуга · Поддержка</span><span class="rating">★★★★☆</span></div>
               <h3>Support Plus</h3>
@@ -1241,6 +1244,37 @@
               <div class="product-bottom"><span class="product-price">14 900 ₸</span><button class="add-btn" data-price="14900">В корзину</button></div>
             </div>
           </article>
+
+          <article class="product-card reveal" data-category="products popular" data-name="wireless earbuds air беспроводные наушники музыка">
+            <div class="product-visual"><span class="badge">Audio</span><img src="https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=900&q=85" alt="Беспроводные наушники" loading="lazy"></div>
+            <div class="product-body"><div class="product-meta"><span>Товар · Аудио</span><span class="rating">★★★★★</span></div><h3>Wireless Earbuds Air</h3><p>Беспроводные наушники с чистым звуком, шумоподавлением и удобным кейсом.</p><div class="product-bottom"><span class="product-price">32 900 ₸</span><button class="add-btn" data-price="32900">В корзину</button></div></div>
+          </article>
+
+          <article class="product-card reveal" data-category="products" data-name="power bank max повербанк зарядка аккумулятор">
+            <div class="product-visual"><span class="badge">Power</span><img src="https://images.unsplash.com/photo-1609592806596-b43bada2f82f?auto=format&fit=crop&w=900&q=85" alt="Power bank" loading="lazy"></div>
+            <div class="product-body"><div class="product-meta"><span>Товар · Зарядка</span><span class="rating">★★★★☆</span></div><h3>Power Bank Max</h3><p>Мощный внешний аккумулятор для телефона, планшета и рабочих поездок.</p><div class="product-bottom"><span class="product-price">18 900 ₸</span><button class="add-btn" data-price="18900">В корзину</button></div></div>
+          </article>
+
+          <article class="product-card reveal" data-category="products popular" data-name="smart lamp light умная лампа свет дом">
+            <div class="product-visual"><span class="badge">Smart</span><img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=900&q=85" alt="Умная лампа" loading="lazy"></div>
+            <div class="product-body"><div class="product-meta"><span>Товар · Умный дом</span><span class="rating">★★★★★</span></div><h3>Smart Lamp Light</h3><p>Умная лампа с мягким светом, сценариями освещения и современным видом.</p><div class="product-bottom"><span class="product-price">15 900 ₸</span><button class="add-btn" data-price="15900">В корзину</button></div></div>
+          </article>
+
+          <article class="product-card reveal" data-category="services popular" data-name="express setup настройка установка техника">
+            <div class="product-visual"><span class="badge">Setup</span><img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=900&q=85" alt="Настройка техники" loading="lazy"></div>
+            <div class="product-body"><div class="product-meta"><span>Услуга · Настройка</span><span class="rating">★★★★★</span></div><h3>Express Setup</h3><p>Быстрая настройка устройства, подключение аккаунтов и базовых функций.</p><div class="product-bottom"><span class="product-price">9 900 ₸</span><button class="add-btn" data-price="9900">В корзину</button></div></div>
+          </article>
+
+          <article class="product-card reveal" data-category="services" data-name="photo content контент фото карточки товара">
+            <div class="product-visual"><span class="badge">Content</span><img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=900&q=85" alt="Фото контент" loading="lazy"></div>
+            <div class="product-body"><div class="product-meta"><span>Услуга · Контент</span><span class="rating">★★★★☆</span></div><h3>Photo Content</h3><p>Предметная съёмка, оформление карточек товара и визуал для сайта.</p><div class="product-bottom"><span class="product-price">29 900 ₸</span><button class="add-btn" data-price="29900">В корзину</button></div></div>
+          </article>
+
+          <article class="product-card reveal" data-category="products" data-name="premium backpack рюкзак сумка ноутбук">
+            <div class="product-visual"><span class="badge">Style</span><img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=900&q=85" alt="Рюкзак для ноутбука" loading="lazy"></div>
+            <div class="product-body"><div class="product-meta"><span>Товар · Аксессуары</span><span class="rating">★★★★★</span></div><h3>Premium Backpack</h3><p>Городской рюкзак для ноутбука, учебы и работы с премиальным дизайном.</p><div class="product-bottom"><span class="product-price">27 900 ₸</span><button class="add-btn" data-price="27900">В корзину</button></div></div>
+          </article>
+
         </div>
 
         <div class="shop-summary reveal">
