@@ -73,15 +73,15 @@
 
   <script>
     const products = [
-      {name:'Смартфон Pro X',cat:'tech',price:299990,img:'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=900&q=80',desc:'Мощный смартфон с качественным экраном и камерой.'},
+      {name:'Смартфон Pro X',cat:'tech',price:299990,img:'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=900&q=80',desc:'Мощный смартфон с большим экраном и качественной камерой.'},
       {name:'Ноутбук UltraBook',cat:'tech',price:459990,img:'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=80',desc:'Лёгкий ноутбук для учёбы, работы и бизнеса.'},
-      {name:'Power Bank 20000 mAh',cat:'tech',price:24990,img:'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?auto=format&fit=crop&w=900&q=80',desc:'Портативная батарея для телефона и аксессуаров.'},
-      {name:'Беспроводные наушники',cat:'tech',price:39990,img:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=80',desc:'Чистый звук, стильный корпус и удобная посадка.'},
-      {name:'Офисный принтер',cat:'office',price:89990,img:'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=900&q=80',desc:'Надёжная печать документов для офиса и дома.'},
-      {name:'Рабочее кресло Comfort',cat:'office',price:69990,img:'https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?auto=format&fit=crop&w=900&q=80',desc:'Эргономичное кресло для долгой работы за компьютером.'},
-      {name:'Доставка товара',cat:'service',price:4990,img:'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=900&q=80',desc:'Быстрая и аккуратная доставка заказа до клиента.'},
-      {name:'Установка и настройка',cat:'service',price:14990,img:'https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=900&q=80',desc:'Настройка техники, программ и проверка работы.'},
-      {name:'Поддержка клиента',cat:'service',price:9990,img:'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=80',desc:'Помощь, консультации и сопровождение после покупки.'}
+      {name:'Power Bank 20000 mAh',cat:'tech',price:24990,img:'https://images.unsplash.com/photo-1610389330102-37dd834be9fc?auto=format&fit=crop&w=900&q=80',desc:'Портативный аккумулятор для зарядки телефона и аксессуаров.'},
+      {name:'Беспроводные наушники',cat:'tech',price:39990,img:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=80',desc:'Беспроводные наушники с чистым звуком и удобной посадкой.'},
+      {name:'Офисный принтер',cat:'office',price:89990,img:'https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?auto=format&fit=crop&w=900&q=80',desc:'Принтер для печати документов дома и в офисе.'},
+      {name:'Рабочее кресло Comfort',cat:'office',price:69990,img:'https://images.unsplash.com/photo-1580480055273-228ff5388ef8?auto=format&fit=crop&w=900&q=80',desc:'Эргономичное офисное кресло для долгой работы за компьютером.'},
+      {name:'Доставка товара',cat:'service',price:4990,img:'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=900&q=80',desc:'Курьерская доставка посылок и заказов до клиента.'},
+      {name:'Установка и настройка',cat:'service',price:14990,img:'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=900&q=80',desc:'Настройка техники, подключение устройств и проверка работы.'},
+      {name:'Поддержка клиента',cat:'service',price:9990,img:'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=80',desc:'Консультация, помощь и сопровождение клиента после покупки.'}
     ];
     const grid=document.getElementById('productGrid'), search=document.getElementById('search'), chips=document.querySelectorAll('.chip');
     let filter='all', count=0, sum=0;
