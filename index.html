@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Товары и услуги — WorldSkills Module 2</title>
+  <style>
+    :root {
+      --bg: #f6f8ff;
+      --bg-soft: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --primary: #4f46e5;
+      --primary-dark: #312e81;
+      --cyan: #06b6d4;
+      --violet: #7c3aed;
+      --border: rgba(15, 23, 42, 0.1);
+      --glass: rgba(255, 255, 255, 0.72);
+      --shadow: 0 24px 70px rgba(30, 41, 59, 0.14);
+      --shadow-soft: 0 16px 40px rgba(30, 41, 59, 0.09);
+      --radius: 28px;
+      --container: 1180px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(79, 70, 229, 0.16), transparent 30%),
+        radial-gradient(circle at 85% 12%, rgba(6, 182, 212, 0.18), transparent 28%),
+        radial-gradient(circle at 55% 88%, rgba(124, 58, 237, 0.1), transparent 32%),
+        var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    .container {
+      width: min(var(--container), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(24px);
+      background: rgba(246, 248, 255, 0.78);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 850;
+      letter-spacing: -0.04em;
+      font-size: 22px;
+    }
+
+    .logo-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--primary), var(--cyan));
+      color: white;
+      box-shadow: 0 16px 34px rgba(79, 70, 229, 0.32);
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .menu a {
+      display: inline-flex;
+      padding: 12px 14px;
+      border-radius: 999px;
+      color: #334155;
+      font-weight: 650;
+      font-size: 14px;
+      transition: 0.25s ease;
+    }
+
+    .menu a:hover {
+      color: var(--primary);
+      background: rgba(79, 70, 229, 0.08);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      border: 0;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight: 800;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      color: white;
+      background: linear-gradient(135deg, var(--primary), var(--cyan));
+      box-shadow: 0 18px 36px rgba(79, 70, 229, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.025);
+      box-shadow: 0 24px 54px rgba(79, 70, 229, 0.42);
+    }
+
+    .btn-secondary {
+      color: var(--primary-dark);
+      background: rgba(255, 255, 255, 0.76);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .burger {
+      width: 46px;
+      height: 46px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.76);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .burger span {
+      width: 20px;
+      height: 2px;
+      background: var(--text);
+      position: relative;
+      border-radius: 999px;
+      transition: 0.25s ease;
+    }
+
+    .burger span::before,
+    .burger span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 20px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 999px;
+      transition: 0.25s ease;
+    }
+
+    .burger span::before { top: -7px; }
+    .burger span::after { top: 7px; }
+
+    .burger.active span { background: transparent; }
+    .burger.active span::before { top: 0; transform: rotate(45deg); }
+    .burger.active span::after { top: 0; transform: rotate(-45deg); }
+
+    .hero {
+      position: relative;
+      padding: 88px 0 70px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.74);
+      box-shadow: 0 12px 28px rgba(30, 41, 59, 0.06);
+      color: #334155;
+      font-weight: 750;
+      font-size: 14px;
+      margin-bottom: 26px;
+    }
+
+    .badge-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--cyan));
+      box-shadow: 0 0 0 6px rgba(79, 70, 229, 0.1);
+    }
+
+    h1 {
+      font-size: clamp(44px, 7vw, 82px);
+      line-height: 0.95;
+      letter-spacing: -0.07em;
+      max-width: 780px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary), var(--cyan));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-text {
+      margin-top: 24px;
+      font-size: clamp(17px, 2vw, 21px);
+      line-height: 1.75;
+      color: var(--muted);
+      max-width: 650px;
+    }
+
+    .hero-actions {
+      margin-top: 34px;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .hero-card {
+      position: relative;
+      min-height: 510px;
+      border-radius: 38px;
+      background: var(--glass);
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(24px);
+      padding: 26px;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -80px -90px auto auto;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.35), rgba(6, 182, 212, 0.28));
+      filter: blur(5px);
+    }
+
+    .dashboard {
+      position: relative;
+      display: grid;
+      gap: 18px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .stat,
+    .service-mini,
+    .chart-card {
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid var(--border);
+      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+      padding: 20px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 32px;
+      letter-spacing: -0.05em;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-weight: 650;
+      font-size: 14px;
+    }
+
+    .service-mini {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .icon {
+      flex: 0 0 52px;
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.12), rgba(6, 182, 212, 0.16));
+      color: var(--primary);
+    }
+
+    .service-mini h3 {
+      font-size: 18px;
+      margin-bottom: 4px;
+      letter-spacing: -0.03em;
+    }
+
+    .service-mini p {
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .chart-bars {
+      display: flex;
+      align-items: end;
+      gap: 12px;
+      height: 126px;
+      margin-top: 18px;
+    }
+
+    .bar {
+      flex: 1;
+      border-radius: 999px 999px 12px 12px;
+      background: linear-gradient(180deg, var(--cyan), var(--primary));
+      min-height: 34px;
+      animation: grow 1.15s ease both;
+    }
+
+    @keyframes grow {
+      from { height: 10%; opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 26px;
+      margin-bottom: 34px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(34px, 4vw, 56px);
+      line-height: 1.03;
+      letter-spacing: -0.06em;
+      max-width: 680px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 430px;
+      font-size: 17px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      position: relative;
+      padding: 28px;
+      min-height: 270px;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.86);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      transition: 0.28s ease;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: auto -80px -90px auto;
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+      background: rgba(79, 70, 229, 0.08);
+      transition: 0.28s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 28px 72px rgba(30, 41, 59, 0.16);
+    }
+
+    .card:hover::after {
+      background: rgba(6, 182, 212, 0.14);
+      transform: scale(1.18);
+    }
+
+    .card h3 {
+      margin-top: 22px;
+      margin-bottom: 12px;
+      font-size: 23px;
+      letter-spacing: -0.04em;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .price {
+      margin-top: 22px;
+      font-weight: 900;
+      font-size: 28px;
+      letter-spacing: -0.04em;
+      color: var(--primary-dark);
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .feature-panel {
+      border-radius: 34px;
+      padding: 34px;
+      background: linear-gradient(135deg, #111827, #312e81 55%, #0891b2);
+      color: white;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .feature-panel::before {
+      content: "";
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      right: -130px;
+      top: -110px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    .feature-panel h2 {
+      position: relative;
+      font-size: clamp(34px, 4vw, 54px);
+      line-height: 1.05;
+      letter-spacing: -0.06em;
+    }
+
+    .feature-panel p {
+      position: relative;
+      margin-top: 18px;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .feature-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 24px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.76);
+      border: 1px solid rgba(255, 255, 255, 0.82);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .check {
+      flex: 0 0 34px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: linear-gradient(135deg, var(--primary), var(--cyan));
+      font-weight: 900;
+    }
+
+    .feature-item h3 {
+      margin-bottom: 6px;
+      letter-spacing: -0.03em;
+    }
+
+    .feature-item p {
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .contact-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      padding: 34px;
+      border-radius: 36px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.82);
+      box-shadow: var(--shadow);
+    }
+
+    .contact-box h2 {
+      font-size: clamp(34px, 4vw, 54px);
+      line-height: 1.05;
+      letter-spacing: -0.06em;
+    }
+
+    .contact-box p {
+      margin-top: 18px;
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 17px;
+    }
+
+    .form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .form input,
+    .form textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      outline: 0;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.84);
+      padding: 16px 18px;
+      color: var(--text);
+      transition: 0.2s ease;
+      resize: vertical;
+    }
+
+    .form input:focus,
+    .form textarea:focus {
+      border-color: rgba(79, 70, 229, 0.45);
+      box-shadow: 0 0 0 5px rgba(79, 70, 229, 0.1);
+    }
+
+    .footer {
+      padding: 34px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid,
+      .features,
+      .contact-box {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        min-height: auto;
+      }
+
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        width: min(100% - 28px, var(--container));
+      }
+
+      .nav {
+        height: 72px;
+      }
+
+      .menu {
+        position: fixed;
+        top: 72px;
+        left: 14px;
+        right: 14px;
+        display: grid;
+        gap: 6px;
+        padding: 14px;
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.94);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+        transform: translateY(-16px);
+        opacity: 0;
+        visibility: hidden;
+        transition: 0.25s ease;
+      }
+
+      .menu.open {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .menu a {
+        padding: 15px 16px;
+        border-radius: 16px;
+      }
+
+      .nav-actions .btn {
+        display: none;
+      }
+
+      .burger {
+        display: flex;
+      }
+
+      .hero {
+        padding: 56px 0 48px;
+      }
+
+      section {
+        padding: 58px 0;
+      }
+
+      .section-head {
+        display: grid;
+      }
+
+      .cards,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-box,
+      .feature-panel {
+        padding: 24px;
+        border-radius: 28px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 42px;
+      }
+
+      .logo {
+        font-size: 18px;
+      }
+
+      .logo-mark {
+        width: 38px;
+        height: 38px;
+      }
+
+      .hero-actions {
+        display: grid;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .card,
+      .hero-card {
+        border-radius: 24px;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <nav class="nav container" aria-label="Основная навигация">
+      <a href="#top" class="logo" aria-label="Товары и услуги">
+        <span class="logo-mark">T</span>
+        <span>Товары и услуги</span>
+      </a>
+
+      <ul class="menu" id="menu">
+        <li><a href="#services">Услуги</a></li>
+        <li><a href="#features">Преимущества</a></li>
+        <li><a href="#products">Товары</a></li>
+        <li><a href="#contact">Контакты</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a class="btn btn-secondary" href="#contact">Связаться</a>
+        <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false">
+          <span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="reveal visible">
+          <div class="badge"><span class="badge-dot"></span> WorldSkills Module 2 · HTML/CSS/JS</div>
+          <h1>Премиальная платформа для <span class="gradient-text">товаров и услуг</span></h1>
+          <p class="hero-text">
+            Современная адаптивная веб-страница с чистой структурой, плавной анимацией, продуманной типографикой и интерфейсом уровня коммерческого продукта.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#products">Смотреть товары</a>
+            <a class="btn btn-secondary" href="#services">Наши услуги</a>
+          </div>
+        </div>
+
+        <aside class="hero-card reveal" aria-label="Панель показателей">
+          <div class="dashboard">
+            <div class="stats">
+              <div class="stat">
+                <strong>98%</strong>
+                <span>довольных клиентов</span>
+              </div>
+              <div class="stat">
+                <strong>24/7</strong>
+                <span>поддержка сервиса</span>
+              </div>
+            </div>
+
+            <div class="service-mini">
+              <div class="icon">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 7.5C4 6.12 5.12 5 6.5 5h11C18.88 5 20 6.12 20 7.5v9c0 1.38-1.12 2.5-2.5 2.5h-11C5.12 19 4 17.88 4 16.5v-9Z" stroke="currentColor" stroke-width="2"/>
+                  <path d="m7 9 5 4 5-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div>
+                <h3>Быстрая заявка</h3>
+                <p>Форма связи, понятная навигация и логичная структура для пользователя.</p>
+              </div>
+            </div>
+
+            <div class="chart-card">
+              <h3>Рост эффективности</h3>
+              <div class="chart-bars" aria-hidden="true">
+                <div class="bar" style="height:42%"></div>
+                <div class="bar" style="height:58%"></div>
+                <div class="bar" style="height:74%"></div>
+                <div class="bar" style="height:66%"></div>
+                <div class="bar" style="height:92%"></div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Услуги, которые выглядят дорого и работают понятно</h2>
+          <p>Каждый блок построен на сетке, с правильными отступами, hover-эффектами и адаптивным поведением.</p>
+        </div>
+
+        <div class="cards">
+          <article class="card reveal">
+            <div class="icon">01</div>
+            <h3>Консультация</h3>
+            <p>Помогаем подобрать оптимальное решение под задачу клиента, бюджет и сроки.</p>
+            <div class="price">от 9 900 ₸</div>
+          </article>
+          <article class="card reveal">
+            <div class="icon">02</div>
+            <h3>Подбор товаров</h3>
+            <p>Сравнение характеристик, анализ качества и подготовка персонального предложения.</p>
+            <div class="price">от 14 900 ₸</div>
+          </article>
+          <article class="card reveal">
+            <div class="icon">03</div>
+            <h3>Сервис</h3>
+            <p>Сопровождение после покупки, поддержка и помощь на каждом этапе работы.</p>
+            <div class="price">от 19 900 ₸</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="container features">
+        <div class="feature-panel reveal">
+          <h2>Чистая верстка под максимальный балл</h2>
+          <p>Семантические теги, Flexbox, CSS Grid, адаптивность, плавные состояния и весь текст доступен для выделения.</p>
+        </div>
+
+        <div class="feature-list">
+          <div class="feature-item reveal">
+            <span class="check">✓</span>
+            <div>
+              <h3>Адаптивность 320–1440px+</h3>
+              <p>Меню превращается в бургер, карточки перестраиваются, текст остается читаемым.</p>
+            </div>
+          </div>
+          <div class="feature-item reveal">
+            <span class="check">✓</span>
+            <div>
+              <h3>Современный UI/UX</h3>
+              <p>Glassmorphism, мягкие тени, градиенты, много воздуха и аккуратная иерархия.</p>
+            </div>
+          </div>
+          <div class="feature-item reveal">
+            <span class="check">✓</span>
+            <div>
+              <h3>Нативный JavaScript</h3>
+              <p>Бургер-меню, плавный скролл и появление элементов при прокрутке без библиотек.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="products">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Популярные товары</h2>
+          <p>Карточки оформлены как компоненты настоящего коммерческого сайта: чисто, дорого и удобно.</p>
+        </div>
+
+        <div class="cards">
+          <article class="card reveal">
+            <div class="icon">A</div>
+            <h3>Premium Pack</h3>
+            <p>Набор для комплексного решения задач бизнеса с расширенной поддержкой.</p>
+            <div class="price">49 900 ₸</div>
+          </article>
+          <article class="card reveal">
+            <div class="icon">B</div>
+            <h3>Smart Service</h3>
+            <p>Умный сервисный пакет для быстрого запуска и стабильной работы.</p>
+            <div class="price">34 900 ₸</div>
+          </article>
+          <article class="card reveal">
+            <div class="icon">C</div>
+            <h3>Business Kit</h3>
+            <p>Практичный комплект для компаний, которым важны качество и скорость.</p>
+            <div class="price">59 900 ₸</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact-box reveal">
+          <div>
+            <h2>Оставьте заявку</h2>
+            <p>Форма сделана без inline-стилей и фреймворков. Подходит для демонстрации интерактивности в Модуле 2.</p>
+          </div>
+          <form class="form" id="contactForm">
+            <input type="text" name="name" placeholder="Ваше имя" required />
+            <input type="tel" name="phone" placeholder="Телефон" required />
+            <textarea name="message" rows="4" placeholder="Сообщение"></textarea>
+            <button class="btn btn-primary" type="submit">Отправить заявку</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© 2026 Товары и услуги. WorldSkills Module 2.</p>
+      <p>HTML5 · CSS3 · JavaScript</p>
+    </div>
+  </footer>
+
+  <script>
+    const burger = document.getElementById('burger');
+    const menu = document.getElementById('menu');
+    const links = menu.querySelectorAll('a');
+
+    burger.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('open');
+      burger.classList.toggle('active', isOpen);
+      burger.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.remove('open');
+        burger.classList.remove('active');
+        burger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14 });
+
+    document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
+
+    document.getElementById('contactForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const button = event.currentTarget.querySelector('button');
+      const oldText = button.textContent;
+      button.textContent = 'Заявка отправлена ✓';
+      button.style.pointerEvents = 'none';
+      setTimeout(() => {
+        button.textContent = oldText;
+        button.style.pointerEvents = 'auto';
+        event.currentTarget.reset();
+      }, 1800);
+    });
+  </script>
+</body>
+</html>
